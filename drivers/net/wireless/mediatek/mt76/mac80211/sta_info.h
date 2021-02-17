@@ -859,6 +859,14 @@ static inline u32 sta_stats_encode_rate(struct ieee80211_rx_status *s)
 		r |= STA_STATS_FIELD(LEGACY_BAND, s->band);
 		r |= STA_STATS_FIELD(LEGACY_IDX, s->rate_idx);
 		break;
+       case RX_ENC_HE:
+                r |= STA_STATS_FIELD(TYPE, STA_STATS_RATE_TYPE_HE);
+                r |= STA_STATS_FIELD(HE_NSS, s->nss);
+                r |= STA_STATS_FIELD(HE_MCS, s->rate_idx);
+                r |= STA_STATS_FIELD(HE_GI, s->he_gi);
+                r |= STA_STATS_FIELD(HE_RU, s->he_ru);
+                r |= STA_STATS_FIELD(HE_DCM, s->he_dcm);
+                break;
 	default:
 		WARN_ON(1);
 		return STA_STATS_RATE_INVALID;
