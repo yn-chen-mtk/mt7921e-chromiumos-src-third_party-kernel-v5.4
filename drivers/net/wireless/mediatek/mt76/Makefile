@@ -18,6 +18,8 @@ subdir-ccflags-y += $(call cc-option,-Wno-int-in-bool-context)
 subdir-ccflags-y += $(call cc-option,-Wno-unused-const-variable)
 subdir-ccflags-y += $(call cc-option,-Wno-unused-variable)
 
+subdir-ccflags-$(CONFIG_MT76_DEBUG) += -DDEBUG
+
 obj-$(CONFIG_MT76_CORE) += mac80211/
 obj-$(CONFIG_MT76_CORE) += mt76.o
 obj-$(CONFIG_MT76_USB) += mt76-usb.o
