@@ -218,7 +218,7 @@ void mt76_connac_mcu_beacon_loss_iter(void *priv, u8 *mac,
 	if (!(vif->driver_flags & IEEE80211_VIF_BEACON_FILTER))
 		return;
 
-	ieee80211_beacon_loss(vif);
+	ieee80211_connection_loss(vif);
 }
 EXPORT_SYMBOL_GPL(mt76_connac_mcu_beacon_loss_iter);
 
@@ -1306,7 +1306,7 @@ int mt76_connac_mcu_uni_add_bss(struct mt76_phy *phy,
 }
 EXPORT_SYMBOL_GPL(mt76_connac_mcu_uni_add_bss);
 
-#define MT76_CONNAC_SCAN_CHANNEL_TIME		60
+#define MT76_CONNAC_SCAN_CHANNEL_TIME		0
 int mt76_connac_mcu_hw_scan(struct mt76_phy *phy, struct ieee80211_vif *vif,
 			    struct ieee80211_scan_request *scan_req)
 {
