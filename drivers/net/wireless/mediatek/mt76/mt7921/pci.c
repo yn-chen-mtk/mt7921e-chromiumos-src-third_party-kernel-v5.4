@@ -12,6 +12,8 @@
 #include "mcu.h"
 #include "../trace.h"
 
+#define MT7921_DRIVER_VERSION "v1.0.0"
+
 static const struct pci_device_id mt7921_pci_device_table[] = {
 	{ PCI_DEVICE(PCI_VENDOR_ID_MEDIATEK, 0x7961) },
 	{ },
@@ -134,6 +136,7 @@ static int mt7921_pci_probe(struct pci_dev *pdev,
 	mdev->rev = (mt7921_l1_rr(dev, MT_HW_CHIPID) << 16) |
 		    (mt7921_l1_rr(dev, MT_HW_REV) & 0xff);
 	dev_err(mdev->dev, "ASIC revision: %04x\n", mdev->rev);
+	dev_info(mdev->dev, "driver version: %s\n", MT7921_DRIVER_VERSION);
 
 	mt76_wr(dev, MT_WFDMA0_HOST_INT_ENA, 0);
 
