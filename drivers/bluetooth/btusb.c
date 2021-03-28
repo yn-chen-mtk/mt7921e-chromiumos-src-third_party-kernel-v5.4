@@ -25,7 +25,7 @@
 #include "btbcm.h"
 #include "btrtl.h"
 
-#define VERSION "0.8"
+#define VERSION "1.0.0.20210328"
 
 static bool disable_scofix;
 static bool force_scofix;
@@ -3105,6 +3105,7 @@ static int btusb_mtk_setup_firmware_79xx(struct hci_dev *hdev, const char *fwnam
 	struct btmtk_hci_wmt_params wmt_params;
 	struct btmtk_global_desc *globaldesc = NULL;
 	struct btmtk_section_map *sectionmap;
+	struct btmtk_patch_header *patchhdr = NULL;
 	const struct firmware *fw;
 	const u8 *fw_ptr;
 	const u8 *fw_bin_ptr;
@@ -3123,6 +3124,9 @@ static int btusb_mtk_setup_firmware_79xx(struct hci_dev *hdev, const char *fwnam
 	fw_bin_ptr = fw_ptr;
 	globaldesc = (struct btmtk_global_desc *)(fw_ptr + MTK_FW_ROM_PATCH_HEADER_SIZE);
 	section_num = le32_to_cpu(globaldesc->section_num);
+	patchhdr = (struct btmtk_patch_header*)fw_ptr;
+
+	bt_dev_info(hdev, "Built Time = %s", patchhdr->datetime);
 
 	for (i = 0; i < section_num; i++) {
 		first_block = 1;
@@ -4142,6 +4146,7 @@ static int btusb_probe(struct usb_interface *intf,
 	int i, err;
 
 	BT_DBG("intf %p id %p", intf, id);
+	BT_INFO("MTK BT Driver Version: %s", VERSION);
 
 	/* interface numbers are hardcoded in the spec */
 	if (intf->cur_altsetting->desc.bInterfaceNumber != 0) {
