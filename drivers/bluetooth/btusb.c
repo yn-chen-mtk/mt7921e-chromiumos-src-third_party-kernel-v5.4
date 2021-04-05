@@ -4146,6 +4146,7 @@ static int btusb_probe(struct usb_interface *intf,
 	int i, err;
 
 	BT_DBG("intf %p id %p", intf, id);
+	pr_debug("test");
 	BT_INFO("MTK BT Driver Version: %s", VERSION);
 
 	/* interface numbers are hardcoded in the spec */
@@ -4566,7 +4567,7 @@ static int btusb_suspend(struct usb_interface *intf, pm_message_t message)
 {
 	struct btusb_data *data = usb_get_intfdata(intf);
 
-	BT_DBG("intf %p", intf);
+	BT_DBG("btusb_suspend intf %p", intf);
 
 	if (data->suspend_count++)
 		return 0;
@@ -4646,7 +4647,7 @@ static int btusb_resume(struct usb_interface *intf)
 	struct hci_dev *hdev = data->hdev;
 	int err = 0;
 
-	BT_DBG("intf %p", intf);
+	BT_DBG("btusb_resume intf %p", intf);
 
 	if (--data->suspend_count)
 		return 0;
