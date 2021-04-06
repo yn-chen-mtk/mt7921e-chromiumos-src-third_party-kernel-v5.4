@@ -1391,7 +1391,7 @@ void mt7921_mac_reset_work(struct work_struct *work)
 	dev = container_of(work, struct mt7921_dev, reset_work);
 	hw = mt76_hw(dev);
 
-	dev_err(dev->mt76.dev, "chip reset\n");
+	dev_err(dev->mt76.dev, "[Debug] chip reset\n");
 	ieee80211_stop_queues(hw);
 
 	cancel_delayed_work_sync(&dev->mphy.mac_work);
@@ -1414,6 +1414,7 @@ void mt7921_mac_reset_work(struct work_struct *work)
 	ieee80211_iterate_active_interfaces(hw,
 					    IEEE80211_IFACE_ITER_RESUME_ALL,
 					    mt7921_vif_connect_iter, NULL);
+	dev_err(dev->mt76.dev, "[Debug] chip reset done\n");
 }
 
 void mt7921_reset(struct mt76_dev *mdev)

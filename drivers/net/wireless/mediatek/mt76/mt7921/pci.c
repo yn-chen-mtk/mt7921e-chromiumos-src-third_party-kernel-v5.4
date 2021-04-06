@@ -181,6 +181,8 @@ static int mt7921_pci_suspend(struct pci_dev *pdev, pm_message_t state)
 	bool hif_suspend;
 	int i, err;
 
+	dev_info(mdev->dev, "[Debug] %s +", __func__);
+
 	err = mt76_connac_pm_wake(&dev->mphy, &dev->pm);
 	if (err < 0)
 		return err;
@@ -223,6 +225,8 @@ static int mt7921_pci_suspend(struct pci_dev *pdev, pm_message_t state)
 	if (err)
 		goto restore;
 
+	dev_info(mdev->dev, "[Debug] %s ok -", __func__);
+
 	return 0;
 
 restore:
@@ -233,6 +237,8 @@ restore:
 	if (hif_suspend)
 		mt76_connac_mcu_set_hif_suspend(mdev, false);
 
+	dev_info(mdev->dev, "[Debug] %s fail -", __func__);
+
 	return err;
 }
 
@@ -241,6 +247,8 @@ static int mt7921_pci_resume(struct pci_dev *pdev)
 	struct mt76_dev *mdev = pci_get_drvdata(pdev);
 	struct mt7921_dev *dev = container_of(mdev, struct mt7921_dev, mt76);
 	int i, err;
+
+	dev_info(mdev->dev, "[Debug] %s +", __func__);
 
 	err = pci_set_power_state(pdev, PCI_D0);
 	if (err)
@@ -271,6 +279,8 @@ static int mt7921_pci_resume(struct pci_dev *pdev)
 
 	if (!test_bit(MT76_STATE_SUSPEND, &dev->mphy.state))
 		err = mt76_connac_mcu_set_hif_suspend(mdev, false);
+
+	dev_info(mdev->dev, "[Debug] %s -", __func__);
 
 	return err;
 }
