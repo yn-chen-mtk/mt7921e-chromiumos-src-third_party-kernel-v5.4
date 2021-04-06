@@ -1511,7 +1511,8 @@ int mt76_connac_mcu_sched_scan_enable(struct mt76_phy *phy,
 }
 EXPORT_SYMBOL_GPL(mt76_connac_mcu_sched_scan_enable);
 
-int mt76_connac_mcu_chip_config(struct mt76_dev *dev)
+static int mt76_connac_mcu_set_chip(struct mt76_dev *dev,
+		const char *cmd, u32 cmd_len)
 {
 	struct {
 		__le16 id;
@@ -1524,10 +1525,17 @@ int mt76_connac_mcu_chip_config(struct mt76_dev *dev)
 		.resp_type = 0,
 	};
 
-	memcpy(req.data, "assert", 7);
+	memcpy(req.data, cmd, cmd_len);
 
 	return mt76_mcu_send_msg(dev, MCU_CMD_CHIP_CONFIG, &req, sizeof(req),
 				 false);
+}
+
+int mt76_connac_mcu_chip_config(struct mt76_dev *dev)
+{
+	const char *assert_str = "assert";
+
+	return mt76_connac_mcu_set_chip(dev, assert_str, sizeof(assert_str) + 1);
 }
 EXPORT_SYMBOL_GPL(mt76_connac_mcu_chip_config);
 
