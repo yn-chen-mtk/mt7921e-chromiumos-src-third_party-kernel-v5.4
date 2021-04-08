@@ -1520,6 +1520,7 @@ void mt7921_pm_wake_work(struct work_struct *work)
 						pm.wake_work);
 	mphy = dev->phy.mt76;
 
+	return; //TODO: low power
 	if (!mt7921_mcu_drv_pmctrl(dev))
 		mt76_connac_pm_dequeue_skbs(mphy, &dev->pm);
 	else
@@ -1538,6 +1539,7 @@ void mt7921_pm_power_save_work(struct work_struct *work)
 						pm.ps_work.work);
 
 	delta = dev->pm.idle_timeout;
+	goto out; //TODO: low power
 	if (time_is_after_jiffies(dev->pm.last_activity + delta)) {
 		delta = dev->pm.last_activity + delta - jiffies;
 		goto out;
