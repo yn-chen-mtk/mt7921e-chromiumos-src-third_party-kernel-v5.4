@@ -1539,6 +1539,17 @@ int mt76_connac_mcu_chip_config(struct mt76_dev *dev)
 }
 EXPORT_SYMBOL_GPL(mt76_connac_mcu_chip_config);
 
+int mt76_connac_mcu_chip_power_ctrl(struct mt76_dev *dev, bool disable)
+{
+	char pwr_ctrl_str[14] = {};
+	u32 str_len = sizeof(pwr_ctrl_str);
+
+	snprintf(pwr_ctrl_str, str_len, "KeepFullPwr %d", (disable ? 0 : 1));
+
+	return mt76_connac_mcu_set_chip(dev, pwr_ctrl_str, str_len);
+}
+EXPORT_SYMBOL_GPL(mt76_connac_mcu_chip_power_ctrl);
+
 void mt76_connac_mcu_coredump_event(struct mt76_dev *dev, struct sk_buff *skb,
 				    struct mt76_connac_coredump *coredump)
 {

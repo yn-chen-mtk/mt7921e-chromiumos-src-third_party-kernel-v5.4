@@ -244,6 +244,7 @@ mt7921_pm_set(void *data, u64 val)
 	mt7921_mutex_acquire(dev);
 
 	dev->pm.enable = val;
+	mt76_connac_mcu_chip_power_ctrl(&dev->mt76, dev->pm.enable);
 
 	ieee80211_iterate_active_interfaces(mphy->hw,
 					    IEEE80211_IFACE_ITER_RESUME_ALL,
