@@ -12,7 +12,7 @@
 #include "mcu.h"
 #include "../trace.h"
 
-#define MT7921_DRIVER_VERSION "v1.1.2_20210408"
+#define MT7921_DRIVER_VERSION "v1.2.0_20210413"
 
 static const struct pci_device_id mt7921_pci_device_table[] = {
 	{ PCI_DEVICE(PCI_VENDOR_ID_MEDIATEK, 0x7961) },
